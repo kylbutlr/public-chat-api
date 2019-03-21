@@ -25,14 +25,14 @@ module.exports = client => {
     req.on('data', chunk => {
       body += chunk.toString();
     });*/
-    req.on('end', () => {
+    //req.on('end', () => {
       //const { text, time, date, user_id } = JSON.parse(body);
       const { text, time, date, user_id } = req.body;
       db.createPost(text, time, date, user_id, (err, data) => {
         if (err) return next(err);
         res.status(201).send(data[0]);
       });
-    });
+    //});
   };
 
   const deletePost = (req, res, next) => {

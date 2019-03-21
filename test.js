@@ -131,6 +131,18 @@ describe('users', () => {
         });
       });
     });
+    it('should refuse registering a duplicate username', done => {
+      request(app)
+        .post('/register')
+        .send(newUser1)
+        .expect(201);
+      userModel.hashPass(newUser1.password, hashedPass => {
+        db.register(newUser1.username, hashedPass, (err, res) => {
+          expect(err.code === 23505);
+          done();
+        });
+      });
+    });
   });
 
   describe('POST /login', () => {

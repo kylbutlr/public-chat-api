@@ -46,7 +46,7 @@ module.exports = client => {
   };
 
   const register = (req, res, next) => {
-    const { username, password } = JSON.parse(body);
+    const { username, password } = req.body;
     userModel.hashPass(password, hashedPass => {
       db.register(username, hashedPass, (err, data) => {
         if (err) {
@@ -61,7 +61,7 @@ module.exports = client => {
   };
 
   const login = (req, res, next) => {
-    const { username, password } = JSON.parse(body);
+    const { username, password } = req.body;
     db.login(username, (err, data) => {
       if (err) return next(err);
       if (!data[0]) return next();

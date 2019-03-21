@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+var bodyParser = require('body-parser')
 const DB = require('./db');
 const UserModel = require('./model/user');
 const SessionModel = require('./model/session');
@@ -20,12 +21,13 @@ module.exports = client => {
   };
 
   const createPost = (req, res, next) => {
-    let body = '';
+    /*let body = '';
     req.on('data', chunk => {
       body += chunk.toString();
-    });
+    });*/
     req.on('end', () => {
-      const { text, time, date, user_id } = JSON.parse(body);
+      //const { text, time, date, user_id } = JSON.parse(body);
+      const { text, time, date, user_id } = req.body;
       db.createPost(text, time, date, user_id, (err, data) => {
         if (err) return next(err);
         res.status(201).send(data[0]);
@@ -97,6 +99,7 @@ module.exports = client => {
   };
 
   app.use(cors());
+  app.use(bodyParser.json());
   app.get('/posts', getPosts);
   app.post('/posts', [authMiddleware(db), createPost]);
   app.delete('/posts/:id', [authMiddleware(db), deletePost]);

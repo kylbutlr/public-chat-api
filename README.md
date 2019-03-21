@@ -1,2 +1,5 @@
 # Public Chat Api
-Old school public chat room API
+
+Old school public chat room API server
+
+# WIP

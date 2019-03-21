@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 const DB = require('./db');
 const UserModel = require('./model/user');
 const SessionModel = require('./model/session');
@@ -21,18 +21,11 @@ module.exports = client => {
   };
 
   const createPost = (req, res, next) => {
-    /*let body = '';
-    req.on('data', chunk => {
-      body += chunk.toString();
-    });*/
-    //req.on('end', () => {
-      //const { text, time, date, user_id } = JSON.parse(body);
-      const { text, time, date, user_id } = req.body;
-      db.createPost(text, time, date, user_id, (err, data) => {
-        if (err) return next(err);
-        res.status(201).send(data[0]);
-      });
-    //});
+    const { text, time, date, user_id } = req.body;
+    db.createPost(text, time, date, user_id, (err, data) => {
+      if (err) return next(err);
+      res.status(201).send(data[0]);
+    });
   };
 
   const deletePost = (req, res, next) => {
@@ -53,47 +46,35 @@ module.exports = client => {
   };
 
   const register = (req, res, next) => {
-    let body = '';
-    req.on('data', chunk => {
-      body += chunk.toString();
-    });
-    req.on('end', () => {
-      const { username, password } = JSON.parse(body);
-      userModel.hashPass(password, hashedPass => {
-        db.register(username, hashedPass, (err, data) => {
-          if (err) {
-            if (err.code === '23505') {
-              res.status(422);
-            }
-            return next(err);
+    const { username, password } = JSON.parse(body);
+    userModel.hashPass(password, hashedPass => {
+      db.register(username, hashedPass, (err, data) => {
+        if (err) {
+          if (err.code === '23505') {
+            res.status(422);
           }
-          res.status(201).send(data[0]);
-        });
+          return next(err);
+        }
+        res.status(201).send(data[0]);
       });
     });
   };
 
   const login = (req, res, next) => {
-    let body = '';
-    req.on('data', chunk => {
-      body += chunk.toString();
-    });
-    req.on('end', () => {
-      const { username, password } = JSON.parse(body);
-      db.login(username, (err, data) => {
-        if (err) return next(err);
-        if (!data[0]) return next();
-        const user_id = data[0].id;
-        const hashedPass = data[0].password;
-        userModel.checkPass(password, hashedPass, passMatch => {
-          if (passMatch === true) {
-            sessionModel.signSession(user_id, username, newData => {
-              res.status(200).send(newData);
-            });
-          } else {
-            return next();
-          }
-        });
+    const { username, password } = JSON.parse(body);
+    db.login(username, (err, data) => {
+      if (err) return next(err);
+      if (!data[0]) return next();
+      const user_id = data[0].id;
+      const hashedPass = data[0].password;
+      userModel.checkPass(password, hashedPass, passMatch => {
+        if (passMatch === true) {
+          sessionModel.signSession(user_id, username, newData => {
+            res.status(200).send(newData);
+          });
+        } else {
+          return next();
+        }
       });
     });
   };

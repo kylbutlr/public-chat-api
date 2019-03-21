@@ -1,2 +1,2 @@
-# public-chat-api
-Old school public chat API
+# Public Chat Api
+Old school public chat room API

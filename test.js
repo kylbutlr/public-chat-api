@@ -25,8 +25,7 @@ afterAll(() => {
 describe('posts', () => {
   const newPost1 = {
     text: 'test entry 3',
-    time: null,
-    date: new Date(),
+    created: new Date(),
     user_id: 1,
   };
 
@@ -51,7 +50,7 @@ describe('posts', () => {
         .post('/posts')
         .send(newPost1)
         .expect(201);
-      db.createPost(newPost1.text, newPost1.time, newPost1.date, newPost1.user_id, (err, res) => {
+      db.createPost(newPost1.text, newPost1.created, newPost1.user_id, (err, res) => {
         if (err) throw err;
         expect(res[0].user_id).toBe(1);
         expect(res[0].text).toBe(newPost1.text);

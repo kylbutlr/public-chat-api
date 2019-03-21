@@ -21,8 +21,8 @@ module.exports = client => {
   };
 
   const createPost = (req, res, next) => {
-    const { text, time, date, user_id } = req.body;
-    db.createPost(text, time, date, user_id, (err, data) => {
+    const { text, created, user_id } = req.body;
+    db.createPost(text, created, user_id, (err, data) => {
       if (err) return next(err);
       res.status(201).send(data[0]);
     });

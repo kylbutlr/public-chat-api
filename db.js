@@ -5,10 +5,10 @@ module.exports = client => ({
       cb(null, res.rows);
     }),
 
-  createPost: (text, time, date, user_id, cb) =>
+  createPost: (text, created, user_id, cb) =>
     client.query(
-      'INSERT INTO posts (text, time, date, user_id) VALUES ($1, $2, $3, $4) RETURNING *',
-      [text, time, date, user_id],
+      'INSERT INTO posts (text, created, user_id) VALUES ($1, $2, $3) RETURNING *',
+      [text, created, user_id],
       (err, res) => {
         if (err) return cb(err);
         cb(null, res.rows);

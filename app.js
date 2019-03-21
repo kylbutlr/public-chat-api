@@ -89,9 +89,9 @@ module.exports = client => {
   };
 
   app.use(cors());
+  app.get('/posts', getPosts);
   app.post('/posts', [authMiddleware(db), createPost]);
   app.delete('/posts/:id', [authMiddleware(db), deletePost]);
-  app.get('/posts', getPosts);
   app.post('/register', register);
   app.post('/login', login);
   app.use((req, res) => res.status(404).send('404: Not Found'));

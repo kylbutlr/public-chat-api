@@ -1,5 +1,60 @@
-# Public Chat Api
+# Public Chat API
 
-Old school public chat room API server
+Old school public chat room application API server
 
-## WIP
+Created to be used with my [Public Chat App](https://github.com/kylbutlr/public-chat-app)
+
+Features: REST CRD (no update), routing, tests, user accounts, authorization, and encryption
+
+Uses: PostgreSQL, Express, Jest, JWT, and Bcrypt
+
+
+
+## Install
+
+```shell
+npm install
+```
+
+## Usage
+
+Server runs on port `3000`
+
+```shell
+npm start
+```
+
+Create/delete post requests require a Config Object of Headers for Authorization containing the JSON Web Token:
+
+```js
+headers: {
+  authorization: JWT
+}
+```
+
+#### Users:
+
+| HTTP | Request   | Response                                                    |
+| ---- | --------- | ----------------------------------------------------------- |
+| POST | /login    | Checks returned hashed password and creates new JWT session |
+| POST | /register | Registers a new user after hashing the password             |
+
+#### Posts:
+
+| HTTP   | Request    | Response                                      |
+| ------ | ---------- | --------------------------------------------- |
+| GET    | /posts     | Returns all posts                             |
+| POST   | /posts     | Creates a new post                            |
+| DELETE | /posts/:id | Deletes one post with a corresponding post id |
+
+## Contributing
+
+[@kylbutlr](https://github.com/kylbutlr)
+
+#### Special Thanks: 
+
+[@NoumanSaleem](https://github.com/NoumanSaleem)
+
+## License
+
+MIT

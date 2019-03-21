@@ -89,8 +89,7 @@ module.exports = client => {
   };
 
   app.use(cors());
-  //app.post('/posts', [authMiddleware(db), createPost]);
-  app.post('/posts', createPost);
+  app.post('/posts', [authMiddleware(db), createPost]);
   app.delete('/posts/:id', [authMiddleware(db), deletePost]);
   app.get('/posts', getPosts);
   app.post('/register', register);

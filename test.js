@@ -116,6 +116,19 @@ describe('users', () => {
     password: 'pass',
   };
 
+  describe('GET /users', () => {
+    it('should return all from /users', done => {
+      request(app)
+        .get('/users')
+        .expect(200);
+      db.getPosts((err, res) => {
+        if (err) throw err;
+        expect(res).toHaveLength(2);
+        done();
+      });
+    });
+  });
+
   describe('POST /register', () => {
     it('should register a user to /users', done => {
       request(app)

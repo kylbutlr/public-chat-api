@@ -21,6 +21,13 @@ module.exports = client => ({
       cb(null, res.rows);
     }),
 
+  getUsers: cb =>
+    client.query('SELECT * FROM users', (err, res) => {
+      if (err) return cb(err);
+      cb(null, res.rows);
+    }),
+
+
   register: (username, password, cb) =>
     client.query(
       'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *',

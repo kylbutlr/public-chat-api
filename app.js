@@ -42,6 +42,14 @@ module.exports = client => {
     });
   };
 
+  const getUsers = (req, res, next) => {
+    db.getUsers((err, data) => {
+      if (err) return next(err);
+      if (!data) return next();
+      res.status(200).send(data);
+    });
+  };
+
   const register = (req, res, next) => {
     let body = '';
     req.on('data', chunk => {
@@ -92,6 +100,7 @@ module.exports = client => {
   app.get('/posts', getPosts);
   app.post('/posts', [authMiddleware(db), createPost]);
   app.delete('/posts/:id', [authMiddleware(db), deletePost]);
+  app.get('/users', getUsers);
   app.post('/register', register);
   app.post('/login', login);
   app.use((req, res) => res.status(404).send('404: Not Found'));

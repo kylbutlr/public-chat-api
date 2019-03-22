@@ -8,7 +8,7 @@ Features: REST CRUD, routing, tests, user accounts, authorization, and encryptio
 
 Uses: PostgreSQL, Express, Jest, JWT, and Bcrypt
 
-
+***
 
 ## Install
 
@@ -56,6 +56,8 @@ Start unit and integration tests:
 ```shell
 npm test
 ```
+
+***
 
 ## Contributing
 

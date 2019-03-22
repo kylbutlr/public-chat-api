@@ -28,6 +28,16 @@ module.exports = client => {
     });
   };
 
+  const updatePost = (req, res, next) => {
+    const id = Number (req.params.id);
+    const { text, created, user_id } = req.body;
+    db.updatePost(id, text, created, user_id, (err, data) => {
+      if (err) return next(err);
+      if (!data[0]) return next();
+      res.status(204).send(data[0]);
+    });
+  };
+
   const deletePost = (req, res, next) => {
     const id = Number(req.params.id);
     db.deletePost(id, (err, data) => {
@@ -83,6 +93,7 @@ module.exports = client => {
   app.use(bodyParser.json());
   app.get('/posts', getPosts);
   app.post('/posts', [authMiddleware(db), createPost]);
+  app.put('/posts/:id', [authMiddleware(db), updatePost]);
   app.delete('/posts/:id', [authMiddleware(db), deletePost]);
   app.get('/users', getUsers);
   app.post('/register', register);

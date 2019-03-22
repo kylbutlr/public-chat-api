@@ -18,7 +18,7 @@ npm install
 
 ## Usage
 
-Server runs on port `3000`
+Start the local server:
 
 ```shell
 npm start
@@ -50,6 +50,8 @@ headers: {
 | DELETE | /posts/:id | Deletes one post with a corresponding post id |
 
 #### Tests:
+
+Start unit and integration tests:
 
 ```shell
 npm test

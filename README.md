@@ -12,7 +12,7 @@ Uses: PostgreSQL, Express, Jest, JWT, and Bcrypt
 
 ### [Click here for a live preview](https://kylbutlr-chat-app.herokuapp.com/) of my React app that uses this API. 
 
-Or [go to the API directly](https://kylbutlr-chat-api.herokuapp.com/) in your browser. (Try going to /todos)
+Or [go to the API directly](https://kylbutlr-chat-api.herokuapp.com/) in your browser. (Try going to /posts)
 
 **Warning**: This is public information. This is currently a "public app", so all entries and modifications will be **saved and displayed for everyone**.
 

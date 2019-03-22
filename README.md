@@ -10,6 +10,16 @@ Uses: PostgreSQL, Express, Jest, JWT, and Bcrypt
 
 ***
 
+### [Click here for a live preview](https://kylbutlr-chat-app.herokuapp.com/) of my React app that uses this API. 
+
+Or [go to the API directly](https://kylbutlr-chat-api.herokuapp.com/) in your browser. (Try going to /todos)
+
+**Warning**: This is public information. This is currently a "public app", so all entries and modifications will be **saved and displayed for everyone**.
+
+No e-mail required to register a new user. Or use the public test account (username: test, password: test).
+
+***
+
 ## Install
 
 ```shell

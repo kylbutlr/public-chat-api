@@ -14,9 +14,9 @@ Uses: PostgreSQL, Express, Jest, JWT, and Bcrypt
 
 Or [go to the API directly](https://kylbutlr-chat-api.herokuapp.com/) in your browser. (Try going to /posts)
 
-**Warning**: This is public information. This is currently a "public app", so all entries and modifications will be **saved and displayed for everyone**.
+**All messages will be publicly displayed (deleted daily)**.
 
-No e-mail required to register a new user. Or use the public test account (username: test, password: test).
+No e-mail required to register a new user, or feel free to use the public test account (username: test, password: test).
 
 ***
 

@@ -3,27 +3,10 @@ const { Client } = require('pg');
 const App = require('./app');
 const DB = require('./db');
 const UserModel = require('./model/user');
+const SessionModel = require('./model/session');
 let db;
 let client;
-
-const newUser1 = {
-  username: 'testUser3',
-  password: 'pass',
-};
-const newUser2 = {
-  username: 'testUser4',
-  password: 'pass',
-};
-const newPost = {
-  text: 'test entry 3',
-  created: new Date(),
-  user_id: 1,
-};
-const badPost = {
-  text: 'bad entry',
-  created: new Date(),
-  user_id: -1,
-};
+let session;
 
 beforeAll(() => {
   client = new Client({
@@ -35,6 +18,7 @@ beforeAll(() => {
   db = DB(client);
   app = App(client);
   userModel = UserModel(db);
+  sessionModel = SessionModel(db);
 });
 
 afterAll(() => {
@@ -42,6 +26,14 @@ afterAll(() => {
 });
 
 describe('USERS', () => {
+  const newUser1 = {
+    username: 'testUser3',
+    password: 'pass',
+  };
+  const newUser2 = {
+    username: 'testUser4',
+    password: 'pass',
+  };
   describe('GET /users', () => {
     it('should get from /users', done => {
       request(app)
@@ -56,7 +48,6 @@ describe('USERS', () => {
       });
     });
   });
-
   describe('POST /register', () => {
     it('should post to /register', done => {
       request(app)
@@ -68,7 +59,7 @@ describe('USERS', () => {
       userModel.hashPass(newUser2.password, hashedPass => {
         db.register(newUser2.username, hashedPass, (err, res) => {
           if (err) throw err;
-          expect(res[0].id).toBe(4);
+          expect(res[0].id).toBe(2);
           expect(res[0].username).toBe(newUser2.username);
           done();
         });
@@ -83,7 +74,6 @@ describe('USERS', () => {
       });
     });
   });
-
   describe('POST /login', () => {
     it('should post to /login', done => {
       request(app)
@@ -97,8 +87,15 @@ describe('USERS', () => {
         expect(res);
         userModel.checkPass(newUser1.password, res[0].password, passMatch => {
           expect(passMatch).toBe(true);
+          sessionModel.signSession(res[0].id, newUser1.username, newSession => {
+            session = {
+              jwt: newSession.jwt,
+              user_id: res[0].id,
+              username: newUser1.username,
+            };
+            done();
+          });
         });
-        done();
       });
     });
     it('should return unauthorized for wrong password', done => {
@@ -115,6 +112,21 @@ describe('USERS', () => {
 });
 
 describe('POSTS', () => {
+  const newPost1 = {
+    text: 'test entry 3',
+    created: new Date(),
+    user_id: 1,
+  };
+  const newPost2 = {
+    text: 'test entry 4',
+    created: new Date(),
+    user_id: 1,
+  };
+  const badPost = {
+    text: 'bad entry',
+    created: new Date(),
+    user_id: -1,
+  };
   describe('GET /posts', () => {
     it('should get from /posts', done => {
       request(app)
@@ -131,20 +143,20 @@ describe('POSTS', () => {
       });
     });
   });
-
   describe('POST /posts', () => {
-    /* THIS NEEDS TO BE AUTHORIZED TO PASS */
-    /*it('should post to /posts', done => {
+    it('should post to /posts', done => {
       request(app)
         .post('/posts')
-        .send(newPost)
+        .set('authorization', session.jwt)
+        .send(newPost1)
         .expect(201, done);
-    });*/
+    });
     it('should call db.createPost', done => {
-      db.createPost(newPost.text, newPost.created, newPost.user_id, (err, res) => {
+      const { text, created, user_id } = newPost2;
+      db.createPost(text, created, user_id, (err, res) => {
         if (err) throw err;
         expect(res[0].user_id).toBe(1);
-        expect(res[0].text).toBe(newPost.text);
+        expect(res[0].text).toBe(newPost2.text);
         done();
       });
     });
@@ -154,24 +166,23 @@ describe('POSTS', () => {
         .send(badPost)
         .expect(401, done);
     });
-    it('should return 3 from /posts', done => {
+    it('should return all from /posts', done => {
       db.getPosts((err, res) => {
         if (err) throw err;
-        expect(res).toHaveLength(3);
+        expect(res).toHaveLength(4);
         expect(res[2].user_id).toBe(1);
-        expect(res[2].text).toBe(newPost.text);
+        expect(res[2].text).toBe(newPost1.text);
         done();
       });
     });
   });
-
   describe('DELETE /posts', () => {
-    /* THIS NEEDS TO BE AUTHORIZED TO PASS */
-    /*it('should delete from /posts', done => {
+    it('should delete from /posts', done => {
       request(app)
         .delete('/posts/1')
+        .set('authorization', session.jwt)
         .expect(204, done);
-    });*/
+    });
     it('should call db.deletePost', done => {
       db.deletePost(1, done);
     });
@@ -185,12 +196,28 @@ describe('POSTS', () => {
         .delete('/posts/2')
         .expect(401, done);
     });
-    it('should return 2 from /posts', done => {
+    it('should delete from /posts', done => {
+      request(app)
+        .delete('/posts/2')
+        .set('authorization', session.jwt)
+        .expect(204, done);
+    });
+    it('should delete from /posts', done => {
+      request(app)
+        .delete('/posts/3')
+        .set('authorization', session.jwt)
+        .expect(204, done);
+    });
+    it('should delete from /posts', done => {
+      request(app)
+        .delete('/posts/4')
+        .set('authorization', session.jwt)
+        .expect(204, done);
+    });
+    it('should return all from /posts', done => {
       db.getPosts((err, res) => {
         if (err) throw err;
-        expect(res).toHaveLength(2);
-        expect(res[1].user_id).toBe(1);
-        expect(res[1].text).toBe(newPost.text);
+        expect(res).toHaveLength(0);
         done();
       });
     });

@@ -6,8 +6,6 @@ const UserModel = require('./model/user');
 let db;
 let client;
 
-const userModel = UserModel(db);
-
 const newUser1 = {
   username: 'testUser3',
   password: 'pass',
@@ -16,13 +14,8 @@ const newUser2 = {
   username: 'testUser4',
   password: 'pass',
 };
-const newPost1 = {
+const newPost = {
   text: 'test entry 3',
-  created: new Date(),
-  user_id: 1,
-};
-const newPost2 = {
-  text: 'test entry 4',
   created: new Date(),
   user_id: 1,
 };
@@ -41,6 +34,7 @@ beforeAll(() => {
   client.connect();
   db = DB(client);
   app = App(client);
+  userModel = UserModel(db);
 });
 
 afterAll(() => {
@@ -143,14 +137,14 @@ describe('POSTS', () => {
     /*it('should post to /posts', done => {
       request(app)
         .post('/posts')
-        .send(newPost1)
+        .send(newPost)
         .expect(201, done);
     });*/
     it('should call db.createPost', done => {
-      db.createPost(newPost1.text, newPost1.created, newPost1.user_id, (err, res) => {
+      db.createPost(newPost.text, newPost.created, newPost.user_id, (err, res) => {
         if (err) throw err;
         expect(res[0].user_id).toBe(1);
-        expect(res[0].text).toBe(newPost1.text);
+        expect(res[0].text).toBe(newPost.text);
         done();
       });
     });
@@ -165,7 +159,7 @@ describe('POSTS', () => {
         if (err) throw err;
         expect(res).toHaveLength(3);
         expect(res[2].user_id).toBe(1);
-        expect(res[2].text).toBe(newPost1.text);
+        expect(res[2].text).toBe(newPost.text);
         done();
       });
     });
@@ -196,7 +190,7 @@ describe('POSTS', () => {
         if (err) throw err;
         expect(res).toHaveLength(2);
         expect(res[1].user_id).toBe(1);
-        expect(res[1].text).toBe(newPost1.text);
+        expect(res[1].text).toBe(newPost.text);
         done();
       });
     });

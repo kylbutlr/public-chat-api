@@ -73,10 +73,6 @@ npm test
 
 [@kylbutlr](https://github.com/kylbutlr)
 
-#### Special Thanks: 
-
-[@NoumanSaleem](https://github.com/NoumanSaleem)
-
 ## License
 
 MIT

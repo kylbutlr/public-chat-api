@@ -1,6 +1,6 @@
 # Public Chat API
 
-Old school public chat room application API server
+Old school public chat room application API node server
 
 Created to be used with my [Public Chat App](https://github.com/kylbutlr/public-chat-app) front-end
 

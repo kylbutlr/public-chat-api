@@ -4,7 +4,7 @@
   "description": "Old school public chat API",
   "main": "app.js",
   "scripts": {
-    "test": "psql -h ec2-23-23-173-30.compute-1.amazonaws.com -U wwszofscjfotfu -d d3pl30210m0fh0 -p 5432 -f restartTest.sql && npx jest test.js",
+    "test": "set PGPASSWORD=cefba8a94611cfa65c685484d637100afbc4616f0b48fed523675e66804370b4&& psql -w -h ec2-23-23-173-30.compute-1.amazonaws.com -U wwszofscjfotfu -d d3pl30210m0fh0 -p 5432 -f restartTest.sql && npx jest test.js",
     "start": "node server.js"
   },
   "repository": {

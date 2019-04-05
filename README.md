@@ -1,6 +1,6 @@
 # Public Chat API
 
-Old school public chat room application API node server
+#### Old school public chat room application API
 
 Created to be used with my [Public Chat App](https://github.com/kylbutlr/public-chat-app) front-end
 
@@ -8,33 +8,22 @@ Features: REST CRUD, routing, tests, user accounts, authorization, and encryptio
 
 Uses: PostgreSQL, Express, Jest, JWT, and Bcrypt
 
-***
-
-### [Click here for a live preview](https://kylbutlr-chat-app.herokuapp.com/) of my React app that uses this API. 
-
-Or [go to the API directly](https://kylbutlr-chat-api.herokuapp.com/posts) in your browser. (Link goes to /posts)
-
-**All messages will be publicly displayed (deleted daily)**.
-
-No e-mail required to register a new user, or feel free to use the public test account (username: test, password: test).
-
-***
-
-## Install
-
-```shell
-npm install
-```
-
 ## Usage
 
-Start the local server:
+The API can be found at: ```https://kylbutlr-chat-api.herokuapp.com/```
 
-```shell
-npm start
-```
+[Click here for an example](https://kylbutlr-chat-api.herokuapp.com/posts). (This link goes to /posts)
 
-Create, update, and delete post requests require a Config Object of Headers for Authorization containing the JSON Web Token:
+Alternatively, download this repository and run the server locally:
+
+1. Install the dependencies: ```npm install```
+2. Run unit and integration tests: ```npm test```
+3. Start the server: ```npm start``` 
+4. API can be found at: ```localhost:3000```
+
+### Requests:
+
+Create, update, and delete post requests require a Config Object of Headers for Authorization containing the JSON Web Token for the current session (tied to the logged in user):
 
 ```js
 headers: {
@@ -58,14 +47,6 @@ headers: {
 | POST   | /posts     | Creates a new post                            |
 | PUT    | /posts/:id | Edits one post with a corresponding post id   |
 | DELETE | /posts/:id | Deletes one post with a corresponding post id |
-
-#### Tests:
-
-Start unit and integration tests:
-
-```shell
-npm test
-```
 
 ***
 

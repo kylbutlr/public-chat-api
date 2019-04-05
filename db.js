@@ -37,7 +37,6 @@ module.exports = client => ({
       cb(null, res.rows);
     }),
 
-
   register: (username, password, cb) =>
     client.query(
       'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *',

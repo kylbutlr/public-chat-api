@@ -12,7 +12,7 @@ Uses: PostgreSQL, Express, Jest, JWT, and Bcrypt
 
 The API can be found at: ```https://kylbutlr-chat-api.herokuapp.com/```
 
-[Click here for an example](https://kylbutlr-chat-api.herokuapp.com/posts). (This link goes to /posts)
+[Click here for an example](https://kylbutlr-chat-api.herokuapp.com/posts) (This link goes to /posts)
 
 Alternatively, download this repository and run the server locally:
 

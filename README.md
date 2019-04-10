@@ -2,7 +2,7 @@
 
 #### RESTful API for an old school public chat room application
 
-Created to be used with my [Public Chat App](https://github.com/kylbutlr/public-chat-app) front-end
+Created to be used with [Public Chat App](https://github.com/kylbutlr/public-chat-app)
 
 Features: REST CRUD, routing, tests, user accounts, authorization, and encryption
 

@@ -10,7 +10,7 @@ Uses: PostgreSQL, Express, Jest, JWT, and Bcrypt
 
 ## How to Use:
 
-The API can be found at: ```https://kylbutlr-chat-api.herokuapp.com/```
+API Endpoint: ```https://kylbutlr-chat-api.herokuapp.com/```
 
 [Click here for an example](https://kylbutlr-chat-api.herokuapp.com/posts) (This link goes to /posts)
 

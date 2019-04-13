@@ -4,8 +4,6 @@
 
 Created to be used with [Public Chat App](https://github.com/kylbutlr/public-chat-app)
 
-Features: REST CRUD, routing, tests, user accounts, authorization, and encryption
-
 Uses: PostgreSQL, Express, Jest, JWT, and Bcrypt
 
 ## How to Use:

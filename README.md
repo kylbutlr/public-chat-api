@@ -33,9 +33,9 @@ headers: {
 
 | HTTP | Request   | Response                                                    |
 | ---- | --------- | ----------------------------------------------------------- |
+| GET  | /users    | Returns all registered users                                |
 | POST | /login    | Checks returned hashed password and creates new JWT session |
 | POST | /register | Registers a new user after hashing the password             |
-| GET  | /users    | Returns all users                                           |
 
 #### Posts:
 

@@ -1,6 +1,6 @@
 # Public Chat API
 
-#### RESTful API for an old school public chat room application
+#### RESTful API for a basic public chat room application
 
 Created to be used with [Public Chat App](https://github.com/kylbutlr/public-chat-app)
 
